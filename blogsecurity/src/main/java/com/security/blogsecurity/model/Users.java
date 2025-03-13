@@ -19,6 +19,7 @@ public class Users {
     private Set<Posts> posts;
 
     private String username;
+    private String email;
 
     public Users() {
         posts = new HashSet<>();

@@ -1,5 +1,7 @@
 package com.security.blogsecurity.model;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +21,6 @@ public class Posts {
     private String title;
 
     private String content;
+
+    private Timestamp timestamp;
 }
