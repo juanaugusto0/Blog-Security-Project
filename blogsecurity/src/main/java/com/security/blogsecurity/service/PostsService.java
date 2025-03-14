@@ -6,17 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.security.blogsecurity.dto.CreateUserDto;
 import com.security.blogsecurity.dto.SharePostDto;
 import com.security.blogsecurity.exception.MatchingTitleException;
-import com.security.blogsecurity.exception.UserAlreadyExistsException;
 import com.security.blogsecurity.model.Posts;
-import com.security.blogsecurity.model.Users;
 import com.security.blogsecurity.repository.PostsRepository;
 import com.security.blogsecurity.repository.UsersRepository;
 
 @Service
-public class BlogService {
+public class PostsService {
     @Autowired
     private PostsRepository postsRepository;
     
@@ -38,6 +35,10 @@ public class BlogService {
             }
         }
 
+        if(dto.getTitleOfPost().isBlank() || dto.getContentOfPost().isBlank()) {
+            throw new NullPointerException("Title or content cannot be empty");
+        }
+
         Posts post = new Posts();
         post.setTitle(dto.getTitleOfPost());
         post.setContent(dto.getContentOfPost());
@@ -47,16 +48,7 @@ public class BlogService {
         return ResponseEntity.ok().build() ;
     }
 
-    public ResponseEntity<String> createUser(CreateUserDto dto) {
-        if (usersRepository.findByUsername(dto.getUsername()) != null) {
-            throw new UserAlreadyExistsException("Another user is using this name");
-        }
-        Users user = new Users();
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        usersRepository.save(user);
-        return ResponseEntity.ok().build();
-    }
+    
 
 
 }
