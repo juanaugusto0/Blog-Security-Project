@@ -19,14 +19,17 @@ public class UsersService {
         if (usersRepository.findByUsername(dto.getUsername()) != null) {
             throw new UserAlreadyExistsException("Another user is using this name");
         } 
+        if (usersRepository.findByEmail(dto.getEmail()) != null) {
+            throw new UserAlreadyExistsException("Another user is using this email, try logging in");
+            
+        }
+        if (dto.getUsername().isBlank()) {
+            throw new NullPointerException("Username cannot be empty");
+        }
         Users user = new Users();
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         usersRepository.save(user);
         return ResponseEntity.ok().build();
-    }
-
-    public Users getUserbyUsername(String username) {
-        return usersRepository.findByUsername(username);
     }
 }
