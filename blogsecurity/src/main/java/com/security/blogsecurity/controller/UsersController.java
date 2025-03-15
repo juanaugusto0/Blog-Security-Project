@@ -10,7 +10,7 @@ import com.security.blogsecurity.dto.CreateUserDto;
 import com.security.blogsecurity.service.UsersService;
 
 @RestController
-public class UserController {
+public class UsersController {
     @Autowired
     private UsersService usersService;
 

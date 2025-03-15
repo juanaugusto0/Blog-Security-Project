@@ -1,7 +1,7 @@
 package com.security.blogsecurity.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,11 +19,13 @@ public class Users {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<Posts> posts;
+    @OrderBy("timestamp ASC")
+    private List<Posts> posts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<Comments> comments;
+    @OrderBy("timestamp ASC")
+    private List<Comments> comments;
 
     private String username;
     private String email;
@@ -34,10 +36,10 @@ public class Users {
         joinColumns = @JoinColumn(name = "follower_id"), 
         inverseJoinColumns = @JoinColumn(name = "followed_id")
     )
-    private Set<Users> following = new HashSet<>();
+    private List<Users> following = new ArrayList<>();
 
     @ManyToMany(mappedBy = "following")
-    private Set<Users> followers = new HashSet<>();
+    private List<Users> followers = new ArrayList<>();
 
     public void follow(Users userToFollow) {
         this.following.add(userToFollow);
@@ -50,7 +52,7 @@ public class Users {
     }
 
     public Users() {
-        posts = new HashSet<>();
-        comments = new HashSet<>();
+        posts = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 }

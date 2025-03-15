@@ -30,6 +30,6 @@ public class UsersService {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         usersRepository.save(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User Created Successfully");
     }
 }

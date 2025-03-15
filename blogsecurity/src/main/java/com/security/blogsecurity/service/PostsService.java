@@ -45,7 +45,7 @@ public class PostsService {
         post.setUser(usersRepository.findByUsername(dto.getUsername()));
         setTimestamp(post);
         postsRepository.save(post);
-        return ResponseEntity.ok().build() ;
+        return ResponseEntity.ok("Post Shared Successfully");
     }
 
     
