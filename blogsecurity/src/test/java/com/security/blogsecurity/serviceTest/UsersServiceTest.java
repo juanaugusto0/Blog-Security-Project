@@ -43,7 +43,7 @@ public class UsersServiceTest {
 
         ResponseEntity<?> response = usersService.createUser(mockDto);
 
-        assertEquals(ResponseEntity.ok().build(), response);
+        assertEquals(ResponseEntity.ok("User Created Successfully"), response);
 
         verify(usersRepository, times(1)).save(any(Users.class));
     }
